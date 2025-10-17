@@ -14,6 +14,10 @@ By formalizing and writing out the solutions, the underlying concepts become cle
 - Detailed, step-by-step solutions  
 - Focus on conceptual understanding and formal reasoning
 
+## Ecercises
+
+Chapter 1 - Probability Spaces: 1.4, 1.11, 1.15.
+
 ---
 
 *Author:* Mauro Díaz  
