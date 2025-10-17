@@ -17,5 +17,5 @@ By formalizing and writing out the solutions, the underlying concepts become cle
 ---
 
 *Author:* Mauro Díaz  
-*Course:* EMAI – Machine Learning & Data Science  
+*Course:* EMAI – Data Science  
 *Academic year:* 2025
