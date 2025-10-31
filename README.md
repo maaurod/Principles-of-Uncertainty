@@ -20,6 +20,8 @@ Chapter 1 - Probability Spaces: 1.4, 1.11, 1.15.
 
 Chapter 2 - Uncountable Probability Spaces: 2.4, 2.5 and Proposition 2.4.1 of theory.
 
+Chapter 6 - Integration: 6.2.
+
 R Exercises - 1.9, 1.10, 2.8.
 
 ---
