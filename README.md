@@ -22,9 +22,13 @@ Chapter 1 - Probability Spaces: 1.4, 1.11, 1.15.
 
 Chapter 2 - Uncountable Probability Spaces: 2.4, 2.5 and Proposition 2.4.1 of theory.
 
+Chapter 3 - Conditional Probability: 3.3, 3.8.
+
+Chapter 4 - Random Variables: 4.3.
+
 Chapter 6 - Integration: 6.2.
 
-R Exercises - 1.9, 1.10, 2.8, all from chapter 3.
+R Exercises - 1.9, 1.10, 1.14, 2.8, all from chapter 3, chapter 4.1.
 
 ---
 
