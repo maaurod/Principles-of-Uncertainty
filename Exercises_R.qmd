@@ -8,16 +8,20 @@ execute:
   warning: true
   error: true
 ---
+
 # Chapter 1
+
 ## Exercise 1.9
+
 A standard deck (52 cards) is distributed to two persons: 26 cards to each person. All partitions are equally likely. Find the probability that:
-    
-    a) The first person gets 4 Queens.
-    
-    b) The first person gets at least 2 Queens.
 
-R) Use simulation (sample) to check the above answers.
+```         
+a) The first person gets 4 Queens.
 
+b) The first person gets at least 2 Queens.
+```
+
+R)  Use simulation (sample) to check the above answers.
 
 ```{r}
 set.seed(1)
@@ -37,17 +41,21 @@ for (i in 1:n) {
 sum(q4) / n # sum(q4) sums the elements in TRUE.
 sum(q2) / n
 ```
+
 ## Exercise 1.10
 
-Let A and B be events with probabilities:$ P(A) = 2 / 3, \quad P(B) = 1/2.$
-    
-    a) Show that $\tfrac{1}{6} \le P(A \cap B) \le \tfrac{1}{2},$ and give examples to show that both extremes are possible.
-    
-    b)  Find corresponding bounds for ( P(A \cup B) ).
-    
-    R) Draw samples from the examples and show the probability bounds of ( $P(A \cap B)$ ).
+Let A and B be events with probabilities:\$ P(A) = 2 / 3, \quad P(B) = 1/2.\$
+
+```         
+a) Show that $\tfrac{1}{6} \le P(A \cap B) \le \tfrac{1}{2},$ and give examples to show that both extremes are possible.
+
+b)  Find corresponding bounds for ( P(A \cup B) ).
+
+R) Draw samples from the examples and show the probability bounds of ( $P(A \cap B)$ ).
+```
 
 Fair die: $\Omega = \{ 1, \dots, 6\}$ and $A = \{3, 4, 5, 6\}$, $B = \{1, 2, 3\}$ for the lower bound and $A = B + {4}$ for the upper bound
+
 ```{r}
 set.seed(1)
 
@@ -68,15 +76,44 @@ for (i in 1:n) {
 sum(lb) / n
 sum(ub) / n
 ```
+
+## Exercise 1.14
+
+Draw $1000$ samples from the Poisson distribution $\lambda=10$ (rpois) and compare relative frequencies with theoretical probability measure.
+
+```{r}
+num_samples <- 1000
+lambda <- 10
+
+pois_samp <- rpois(num_samples, lambda)
+
+pois_samp <- data.frame(x = pois_samp) %>% # %>% takes the output of one expression and passes it as the first argument to the next function.
+  count(x) %>% # we count the frecuencies for every value x and adds it as a column called n of the dataframe
+  mutate(n = n / 1000, type = "empirical_frequencies") %>% # we divide by num_samples and mutate the columns (Adding, or in thi case changing one of the columns (n) of values and name)
+  bind_rows(data.frame(x = 0:25, n = dpois(0:25, lambda = lambda), type = "theoretical_measure")) # bind_rwos stack dataframes vertically (by row)
+# dpois is the exact PMF function
+
+pois_plot <- ggplot(data = pois_samp, aes(x = x, y = n, fill = type)) + # fill for how to colors thebar (differently for each type)
+  geom_bar(stat="identity", position = "dodge") # geom says to ggplot how to plot the mapping of ggplot
+  # if stat = count: how many observations fall in each x category
+  # if stat =identity: ggplot uses the actual y values you give in the data
+  # if posotion= stack: Puts bars on top of each other
+  # if position = dodge: Puts bars side by side
+
+plot(pois_plot)
+```
+
 # Chapter 2
+
 ## Exercise 2.8
 
-Take the measure space $ (\Omega_1 = (0,1], \mathcal{B}(0,1], \lambda) $ where we know that this is a probability space on ((0,1]).
+Take the measure space \$ (\Omega\_1 = (0,1\], \mathcal{B}(0,1\], \lambda) \$ where we know that this is a probability space on ((0,1\]).
 
-    a) Define a map (function) $f : \Omega_1 \to \Omega_2 = {1, 2, 3, 4, 5, 6}$ such that the measure space $ (\Omega_2, 2^{\Omega_2}, \lambda(f^{-1}(\cdot))) $ is a discrete probability space with uniform probabilities, i.e.,$P(\omega) = \tfrac{1}{6}, \quad \forall \omega \in \Omega_2. $
+```         
+a) Define a map (function) $f : \Omega_1 \to \Omega_2 = {1, 2, 3, 4, 5, 6}$ such that the measure space $ (\Omega_2, 2^{\Omega_2}, \lambda(f^{-1}(\cdot))) $ is a discrete probability space with uniform probabilities, i.e.,$P(\omega) = \tfrac{1}{6}, \quad \forall \omega \in \Omega_2. $
+```
 
-
-R) Use the map in (a) as a basis for a random generator for this fair die.
+R)  Use the map in (a) as a basis for a random generator for this fair die.
 
 ```{r}
 set.seed(1)
@@ -91,14 +128,18 @@ die_s  <- ceiling(6 * unif_s)
 # as.factor converts the elements in categories and summary counts the number of elem in each category
 summary(as.factor(die_s)) / n
 ```
-# Chapter 3
-## Exercise 3.2
-Consider tossing a fair die. Let A = {2, 4, 6} and B = {1, 2, 3, 4}.  
-Then P(A) = 1/2, P(B) = 2/3 and P(AB) = 1/3.  
-Since P(AB) = P(A)P(B), the events A and B are independent.  
 
-Simulate draws from the sample space and verify that the proportions are the same.  
+# Chapter 3
+
+## Exercise 3.2
+
+Consider tossing a fair die. Let A = {2, 4, 6} and B = {1, 2, 3, 4}.\
+Then P(A) = 1/2, P(B) = 2/3 and P(AB) = 1/3.\
+Since P(AB) = P(A)P(B), the events A and B are independent.
+
+Simulate draws from the sample space and verify that the proportions are the same.\
 Then find two events C and D that are **not independent** and repeat the simulation.
+
 ```{r}
 set.seed(1)
 n <- 1000
@@ -122,6 +163,7 @@ sum(as) * sum(bs) / n**2
 sum(abs) / n
 
 ```
+
 ```{r}
 set.seed(1)
 n <- 1000
@@ -143,16 +185,21 @@ sum(cs) * sum(ds) / n**2
 sum(cds) / n
 
 ```
+
 ## Exercise 3.3
-A machine reports the true value of a thrown 12-sided die 5 out of 6 times.  
 
-    a) If the machine reports a 1 has been tossed, what is the probability that it is actually a 1?
+A machine reports the true value of a thrown 12-sided die 5 out of 6 times.
 
-    b) Now let the machine only report whether a 1 has been tossed or not. Does the probability change?
+```         
+a) If the machine reports a 1 has been tossed, what is the probability that it is actually a 1?
 
-R) Use simulation to check your answers to a) and b).
+b) Now let the machine only report whether a 1 has been tossed or not. Does the probability change?
+```
+
+R)  Use simulation to check your answers to a) and b).
 
 We will do only a) to practice
+
 ```{r}
 set.seed(1)  
 nsamps <- 10000 
@@ -188,17 +235,22 @@ sum(truth_a1) / length(truth_a1)
 truth_b1 <- truths[report_b]
 sum(truth_b1) / length(truth_b1)
 ```
-## Exercise 3.4
-A coin is tossed independently n times. The probability of heads at each toss is p.  
-At each time k (k = 2, 3, ..., n) we get a reward at time k+1 if the k-th toss was a head and the previous toss was a tail.  
-Let Aₖ be the event that a reward is obtained at time k.
-  
-    a) Are events Aₖ and Aₖ₊₁ independent?
-    
-    b) Are events Aₖ and Aₖ₊₂ independent?
 
-R) Simulate 10 tosses 10,000 times, where p = 0.7.  
-Check your answers to a) and b) by counting the frequencies of the events A₅, A₆, and A₇.
+## Exercise 3.4
+
+A coin is tossed independently n times. The probability of heads at each toss is p.\
+At each time k (k = 2, 3, ..., n) we get a reward at time k+1 if the k-th toss was a head and the previous toss was a tail.\
+Let Aₖ be the event that a reward is obtained at time k.
+
+```         
+a) Are events Aₖ and Aₖ₊₁ independent?
+
+b) Are events Aₖ and Aₖ₊₂ independent?
+```
+
+R)  Simulate 10 tosses 10,000 times, where p = 0.7.\
+    Check your answers to a) and b) by counting the frequencies of the events A₅, A₆, and A₇.
+
 ```{r}
 set.seed(1)
 n <- 10000
@@ -226,25 +278,29 @@ sum(a7) / n
 sum(a5) * sum(a7) / n**2
 sum(a57) / n
 
-``` 
+```
+
 ## Exercise 3.6
-Exercise 3.6  
-Judy goes around the company for Women’s Day and shares flowers.  
-In every office she leaves a flower if there is at least one woman inside.  
+
+Exercise 3.6\
+Judy goes around the company for Women’s Day and shares flowers.\
+In every office she leaves a flower if there is at least one woman inside.\
 The probability that there’s a woman in the office is 3/5.
 
-    a) What is the probability that Judy leaves her first flower in the fourth office?
+```         
+a) What is the probability that Judy leaves her first flower in the fourth office?
 
-    b) Given that she has given away exactly three flowers in the first four offices, what is the probability that she gives her fourth flower in the eighth office?
+b) Given that she has given away exactly three flowers in the first four offices, what is the probability that she gives her fourth flower in the eighth office?
 
-    c) What is the probability that she leaves the second flower in the fifth office?
+c) What is the probability that she leaves the second flower in the fifth office?
 
-    d) What is the probability that she leaves the second flower in the fifth office, given that she did not leave the second flower in the second office?
+d) What is the probability that she leaves the second flower in the fifth office, given that she did not leave the second flower in the second office?
 
-    e) Judy needs a new supply of flowers immediately after the office where she gives away her last flower.
-       What is the probability that she visits at least five offices, if she starts with two flowers?
+e) Judy needs a new supply of flowers immediately after the office where she gives away her last flower.
+   What is the probability that she visits at least five offices, if she starts with two flowers?
+```
 
-R) Simulate Judy’s walk 10,000 times to check your answers for a)–e).
+R)  Simulate Judy’s walk 10,000 times to check your answers for a)–e).
 
 ```{r}
 set.seed(1)
@@ -277,8 +333,10 @@ sum(c) / n
 sum(d[cond2]) / sum(cond2)
 sum(e) / n
 
-``` 
+```
+
 Cumsum and matrix way:
+
 ```{r}
 set.seed(1)
 nsamps     <- 100000
@@ -306,3 +364,132 @@ sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / sum(csJudy[ ,2] != 2)
 sum(csJudy[ ,4] < 2) / nsamps
 ```
 
+## Exercise 4.1
+
+### Exercise 4.1
+
+R): Plot the three functions.
+
+a)  $$ F(x) =
+      \begin{cases}
+      1 - e^{-x^2}, & x \ge 0, \\
+      0, & x < 0.
+      \end{cases} $$
+
+b)  $$
+      F(x) =
+      \begin{cases}
+      e^{-1/x}, & x > 0, \\
+      0, & x \le 0.
+      \end{cases}
+      $$
+
+c)  $$
+      F(x) =
+      \begin{cases}
+      0, & x \le 0, \\
+      \frac{1}{3}, & 0 < x \le \frac{1}{2}, \\
+      1, & x > \frac{1}{2}.
+      \end{cases}
+      $$
+
+```{r}
+library(tibble)
+library(reshape2)
+library(dplyr)
+library(ggplot2)
+f1 <- function (x) {
+  # tmp is a temporal variable that computes the mapping of f
+  # exp, ^ and other operator are vectorized element-wise in R, so 
+  # x could be a vector c(...) and so tmp could also be
+  tmp        <- 1 - exp(-x^2)
+  # for the position where x < 0 (as a vector) we will put 0 at the image:
+  tmp[x < 0] <- 0
+  return(tmp)
+}
+
+f2 <- function (x) {
+  tmp <- numeric(length(x))     # creates a vector of zeros, same length as x (identical of vector("numeric", length(x)))
+  tmp[x > 0] <- exp(-1/x[x > 0])
+  return(tmp)
+}
+
+f3 <- function (x) {
+  tmp <- numeric(length(x)) 
+  tmp[x > 0 & x <= 1/2] <- 1/3
+  tmp[x > 1/2] <- 1
+  return(tmp)
+}
+
+# tibble creates a modern dataframe from tibble package
+cdf_data <- tibble(x  = seq(-1, 20, by = 0.001), # sequence of values
+                   f1 = f1(x),
+                   f2 = f2(x),
+                   f3 = f3(x)) %>% # %>% is the pipe operator from the magrittr package — it means “then do this”.
+  melt(id.vars = "x") # from lines of x, f1, f2, f3 to x, variable ( onre row for each f1, f2, f3) value (value of f_i(x))
+  # melt creates column of key-values with all the variables (columns before), but with id.vars = "x" we are saying not # that column!
+
+# aes is the aestethic
+cdf_plot <- ggplot(data = cdf_data, aes(x = x, y = value, color = variable)) +
+  geom_hline(yintercept = 1) + # horizontal line at y = 1
+  geom_line() # line connectoing the points of each variable
+plot(cdf_plot)
+```
+
+## Exercise 4.2 Let X be a random variable with CDF
+
+$$
+F(x) =
+\begin{cases}
+0, & x < 0 \\
+\frac{x^2}{2}, & 0 \le x < 1 \\
+\frac{1}{2} + \frac{p}{2}, & 1 \le x < 2 \\
+\frac{1}{2} + \frac{p}{2} + \frac{1 - p}{2}, & x \ge 2
+\end{cases}
+$$
+
+R)  Plot this CDF for \$ p = 0.3 \$. Is it a discrete, continuous, or mixed random variable?
+
+```{r}
+f <- function(x, p) {
+  tmp <- x
+  tmp[x >= 2] <- 1/2 + p/2 + (1 - p)/2
+  tmp[x < 2] <- 1/2 + p/2
+  tmp[x < 1] <- x[x < 1]^2/2
+  tmp[x < 0] <- 0
+  return(tmp)
+}
+
+p <- 0.3
+
+cdf_data <- tibble(x = seq(-1, 5, by=0.0001),
+                   f1 = f(x, p)) %>% melt(id.vars = "x")
+
+cdf_plot <- ggplot(data = cdf_data, aes(x=x, y= value, color = variable)) + geom_hline(yintercept = 1) + geom_line()
+plot(cdf_plot)
+
+```
+
+It is clearly a mixed variable! \## Exercise 4.4 R) Simulate from the binomial distribution with $n=10$ and $p=0.5$, and from $n$ Bernoulli distributions with $p=0.5$. Visually compare the sum of Bernoullis and the binomial. Hint: there is no standard function like rpois for a Bernoulli random variable.
+
+```{r}
+set.seed(1)
+n <- 10
+p <- 0.5
+num_samples <- 10000
+
+bin_samples <- rbinom(num_samples, n, p)
+ber_samples <- matrix(data = NA, nrow = num_samples, ncol = n)
+for (i in 1:num_samples) {
+  ber_samples[i, ] <- sample(0:1, n, replace = TRUE, prob = c(1 - p, p))
+}
+bernoullies <- apply(ber_samples, 1, sum)
+
+b_data    <- tibble(x    = c(bin_samples, bernoullies), # column called x with the values of the vectors (first all bin)
+                    type = c(rep("binomial", num_samples), rep("Bernoulli_sum", num_samples))) 
+                    # rep means repeat num_samples the label
+
+b_plot    <- ggplot(data = b_data, aes(x = x, fill = type)) + # fill the color bars by the different type
+  geom_bar(position = "dodge") # create side-by-side bars for each x-value
+plot(b_plot)
+```
