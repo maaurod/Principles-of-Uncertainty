@@ -34,12 +34,20 @@ Chapter 7 - Expected Value: 7.7, 7.9, 7.14.
 
 Chapter 8 - Multivariate Random Variables: 8.2.
 
-Chapter10 - Concentration Inequalities: 10.3.
+Chapter 10 - Concentration Inequalities: 10.3.
+
+Chapter 11 - Convergence of Random Variables: 11.3.
+
+Chapter 12 - Limit Theorems: 12.1.
+
+Chapter 13 - Estimation Basics: 13.3, 13.4.
+
+Chapter 15 - Maximum Likelihood: 15.2, 15.11.
 
 R Exercises - 1.9, 1.10, 1.14, 2.8, all from chapter 3, chapter 4.1.
 
 ---
 
 *Author:* Mauro Díaz  
-*Course:* EMAI – Data Science  
+*Course:* EMAI – Data Science Spacialization
 *Academic year:* 2025
